@@ -122,7 +122,10 @@
                 gap: 32px;
             }
 
-            .nav-links a:hover,
+            .nav-links a:hover {
+                color: var(--accent);
+            }
+
             .doc-content a:hover,
             .footer-links a:hover {
                 color: var(--accent);
@@ -186,16 +189,6 @@
             }
 
             @media (max-width: 576px) {
-                .nav-wrapper {
-                    align-items: flex-start;
-                    gap: 16px;
-                    flex-direction: column;
-                }
-
-                .nav-links {
-                    gap: 20px;
-                }
-
                 .doc-content {
                     padding: 24px;
                 }
