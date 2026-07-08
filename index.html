@@ -202,6 +202,201 @@
                 color: var(--fg);
             }
 
+            .store-badges {
+                display: inline-flex;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+                margin-bottom: 32px;
+            }
+
+            .app-store-disabled {
+                display: inline-flex;
+                cursor: not-allowed;
+                opacity: 0.52;
+            }
+
+            .app-store-badge {
+                display: block;
+                height: 48px;
+                width: auto;
+                filter: grayscale(1);
+                pointer-events: none;
+            }
+
+            .google-play-badge {
+                display: block;
+                height: 48px;
+                width: auto;
+                pointer-events: none;
+            }
+
+            .google-play-button {
+                display: inline-flex;
+                padding: 0;
+                border: 1px solid var(--border);
+                border-radius: 7px;
+                background: #000;
+                cursor: pointer;
+                transition:
+                    transform 0.2s ease,
+                    box-shadow 0.2s ease,
+                    opacity 0.2s ease;
+            }
+
+            .google-play-button:hover {
+                box-shadow: 0 8px 18px rgba(44, 37, 32, 0.14);
+                transform: translateY(-1px);
+            }
+
+            .google-play-button:focus-visible {
+                outline: 3px solid var(--accent-tint);
+                outline-offset: 3px;
+            }
+
+            .early-access-dialog {
+                position: fixed;
+                inset: 0;
+                width: min(92vw, 520px);
+                margin: auto;
+                padding: 0;
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                background: var(--surface);
+                color: var(--fg);
+                box-shadow: 0 24px 70px rgba(44, 37, 32, 0.28);
+                opacity: 0;
+                transform: translateY(12px) scale(0.96);
+            }
+
+            .early-access-dialog::backdrop {
+                background: rgba(44, 37, 32, 0.45);
+                backdrop-filter: blur(4px);
+                opacity: 0;
+            }
+
+            .early-access-dialog[open] {
+                animation: dialog-enter 0.22s ease-out forwards;
+            }
+
+            .early-access-dialog[open]::backdrop {
+                animation: backdrop-enter 0.22s ease-out forwards;
+            }
+
+            .early-access-dialog.is-closing {
+                animation: dialog-exit 0.18s ease-in forwards;
+            }
+
+            .early-access-dialog.is-closing::backdrop {
+                animation: backdrop-exit 0.18s ease-in forwards;
+            }
+
+            @keyframes dialog-enter {
+                from {
+                    opacity: 0;
+                    transform: translateY(12px) scale(0.96);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+
+            @keyframes dialog-exit {
+                from {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+
+                to {
+                    opacity: 0;
+                    transform: translateY(10px) scale(0.97);
+                }
+            }
+
+            @keyframes backdrop-enter {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes backdrop-exit {
+                from {
+                    opacity: 1;
+                }
+
+                to {
+                    opacity: 0;
+                }
+            }
+
+            .early-access-content {
+                padding: 28px;
+            }
+
+            .early-access-header {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 16px;
+                margin-bottom: 20px;
+            }
+
+            .early-access-header h2 {
+                font-family: var(--font-display);
+                font-size: 28px;
+                line-height: 1.3;
+            }
+
+            .dialog-close-button {
+                width: 36px;
+                height: 36px;
+                border: 1px solid var(--border);
+                border-radius: 50%;
+                background: var(--bg);
+                color: var(--fg);
+                cursor: pointer;
+                font-size: 22px;
+                line-height: 1;
+            }
+
+            .early-access-content p {
+                color: var(--muted);
+                margin-bottom: 18px;
+            }
+
+            .early-access-steps {
+                display: grid;
+                gap: 12px;
+                margin-bottom: 24px;
+                list-style-position: inside;
+            }
+
+            .early-access-steps li {
+                padding: 14px 16px;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                background: var(--bg);
+                color: var(--muted);
+            }
+
+            .early-access-steps a {
+                color: var(--accent);
+                font-weight: 700;
+                text-decoration: underline;
+                text-underline-offset: 3px;
+            }
+
+            .early-access-actions {
+                display: flex;
+                justify-content: flex-end;
+            }
+
             .hero-description {
                 font-size: 18px;
                 color: var(--muted);
@@ -217,6 +412,12 @@
             @media (max-width: 968px) {
                 .hero-actions {
                     justify-content: center;
+                }
+
+                .store-badges {
+                    justify-content: center;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
             }
 
@@ -525,6 +726,31 @@
                         <h1 class="hero-title" data-od-id="hero-main-title">
                             為台股設計的看盤 APP。
                         </h1>
+                        <div class="store-badges">
+                            <span
+                                class="app-store-disabled"
+                                aria-label="App Store 敬請期待"
+                                aria-disabled="true"
+                            >
+                                <img
+                                    class="app-store-badge"
+                                    src="assets/Download_on_the_App_Store_Badge_CNTC_RGB_wht_100217.svg"
+                                    alt="Download on the App Store"
+                                />
+                            </span>
+                            <button
+                                class="google-play-button"
+                                type="button"
+                                onclick="openEarlyAccessDialog()"
+                                aria-haspopup="dialog"
+                            >
+                                <img
+                                    class="google-play-badge"
+                                    src="assets/PreRegisterOnGooglePlay_Badge_Web_color_zh-tw.png"
+                                    alt="Google Play 預先註冊"
+                                />
+                            </button>
+                        </div>
                         <div class="hero-actions"></div>
                     </div>
 
@@ -721,8 +947,67 @@
                     </div>
                 </section>
             </div>
-
         </main>
+
+        <dialog
+            id="early-access-dialog"
+            class="early-access-dialog"
+            aria-labelledby="early-access-title"
+        >
+            <div class="early-access-content">
+                <div class="early-access-header">
+                    <h2 id="early-access-title">加入內部搶先體驗</h2>
+                    <button
+                        class="dialog-close-button"
+                        type="button"
+                        onclick="closeEarlyAccessDialog()"
+                        aria-label="關閉"
+                    >
+                        ×
+                    </button>
+                </div>
+                <p>歡迎加入 Android 內部搶先體驗，依序完成以下步驟即可下載：</p>
+                <ol class="early-access-steps">
+                    <li>
+                        登入 Google 帳號，並加入
+                        <a
+                            href="https://groups.google.com/g/futw-bear"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Google 群組</a
+                        >
+                    </li>
+                    <li>
+                        點選
+                        <a
+                            href="https://play.google.com/apps/testing/com.futwbear.futw"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >測試邀請連結</a
+                        >，成為搶先體驗成員。
+                    </li>
+                    <li>
+                        點選
+                        <a
+                            href="https://play.google.com/store/apps/details?id=com.futwbear.futw"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Play Store 連結</a
+                        >
+                        下載應用程式。
+                    </li>
+                </ol>
+                <div class="early-access-actions">
+                    <button
+                        class="btn btn-primary"
+                        type="button"
+                        onclick="closeEarlyAccessDialog()"
+                    >
+                        我知道了
+                    </button>
+                </div>
+            </div>
+        </dialog>
 
         <!-- ==========================================
        FOOTER
@@ -765,6 +1050,48 @@
                     .getElementById("btn-preview-" + screenId)
                     ?.classList.add("active");
             }
+
+            function openEarlyAccessDialog() {
+                const dialog = document.getElementById("early-access-dialog");
+                if (!dialog) {
+                    return;
+                }
+
+                dialog.classList.remove("is-closing");
+                dialog.showModal();
+            }
+
+            function closeEarlyAccessDialog() {
+                const dialog = document.getElementById("early-access-dialog");
+                if (
+                    !dialog ||
+                    !dialog.open ||
+                    dialog.classList.contains("is-closing")
+                ) {
+                    return;
+                }
+
+                dialog.classList.add("is-closing");
+                window.setTimeout(() => {
+                    dialog.classList.remove("is-closing");
+                    dialog.close();
+                }, 180);
+            }
+
+            document
+                .getElementById("early-access-dialog")
+                ?.addEventListener("click", (event) => {
+                    if (event.target === event.currentTarget) {
+                        closeEarlyAccessDialog();
+                    }
+                });
+
+            document
+                .getElementById("early-access-dialog")
+                ?.addEventListener("cancel", (event) => {
+                    event.preventDefault();
+                    closeEarlyAccessDialog();
+                });
         </script>
     </body>
 </html>
