@@ -403,6 +403,29 @@
                 font-size: 15px;
             }
 
+            .feature-card a {
+                color: var(--accent);
+                font-weight: 600;
+                text-decoration: underline;
+                text-decoration-color: var(--accent-tint);
+                text-decoration-thickness: 2px;
+                text-underline-offset: 3px;
+                transition:
+                    color 0.2s ease,
+                    text-decoration-color 0.2s ease;
+            }
+
+            .feature-card a:hover {
+                color: var(--accent-hover);
+                text-decoration-color: currentColor;
+            }
+
+            .feature-card a:focus-visible {
+                outline: 3px solid var(--accent-tint);
+                outline-offset: 3px;
+                border-radius: 3px;
+            }
+
             /* ==========================================
        Page Display
        ========================================== */
@@ -669,10 +692,12 @@
                                         <path d="M12 8H12.01"></path>
                                     </svg>
                                 </div>
-                                <h3>永遠免費與開源</h3>
+                                <h3>開放原始碼</h3>
                                 <p>
-                                    應用程式將在 Apple Store 與 Google Play
-                                    審核通過後開源。
+                                    <a href="https://github.com/futw-bear/futw-web">Web App</a>
+                                    與
+                                    <a href="https://github.com/futw-bear/rabang-oss">Rabang 後端伺服器</a>
+                                    皆在 GPLv3 授權下開源
                                 </p>
                             </div>
 
